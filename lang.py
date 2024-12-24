@@ -29,10 +29,10 @@ def main():
     )
 
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
+    st.sidebar.header("Upload and Translate")
 
-    # File uploader and language selection on the main page
-    uploaded_file = st.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
-    target_language = st.selectbox(
+    uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
+    target_language = st.sidebar.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
 
