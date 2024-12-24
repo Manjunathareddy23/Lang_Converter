@@ -1,5 +1,5 @@
 import streamlit as st
-from googletrans import Translator, LANGUAGES
+from googletrans import Translator
 from PIL import Image
 import easyocr
 import numpy as np
@@ -37,48 +37,52 @@ def main():
     )  # List of supported Indian languages
 
     if uploaded_file is not None:
-        # Open the image and display it
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        try:
+            # Open the image and convert it to RGB to ensure compatibility
+            image = Image.open(uploaded_file).convert("RGB")
+            st.image(image, caption="Uploaded Image", use_column_width=True)
 
-        # Convert PIL image to numpy array
-        image_np = np.array(image)
+            # Convert PIL image to numpy array for EasyOCR
+            image_np = np.array(image)
 
-        if st.button("Convert"):
-            # Extract text from image using EasyOCR
-            with st.spinner("Extracting text..."):
-                try:
-                    # Handle OCR based on the target language
-                    if target_language == "ta":
-                        reader = easyocr.Reader(["en", "ta"])  # Tamil requires English
-                    elif target_language == "ml":
-                        reader = easyocr.Reader(["en", "ml"])  # Malayalam requires English
-                    else:
-                        reader = easyocr.Reader(["en", target_language])  # For other languages
+            if st.button("Convert"):
+                # Extract text from image using EasyOCR
+                with st.spinner("Extracting text..."):
+                    try:
+                        # Handle OCR based on the target language
+                        if target_language == "ta":
+                            reader = easyocr.Reader(["en", "ta"])  # Tamil requires English
+                        elif target_language == "ml":
+                            reader = easyocr.Reader(["en", "ml"])  # Malayalam requires English
+                        else:
+                            reader = easyocr.Reader(["en", target_language])  # For other languages
 
-                    # Perform OCR and join extracted text
-                    extracted_text = "\n".join([text[1] for text in reader.readtext(image_np)])
-                    if not extracted_text.strip():
-                        st.warning("No text found in the image.")
+                        # Perform OCR and join extracted text
+                        extracted_text = "\n".join([text[1] for text in reader.readtext(image_np)])
+                        if not extracted_text.strip():
+                            st.warning("No text found in the image.")
+                            return
+                    except Exception as e:
+                        st.error(f"Text extraction failed: {str(e)}")
                         return
-                except Exception as e:
-                    st.error(f"Text extraction failed: {str(e)}")
-                    return
 
-            st.subheader("Extracted Text:")
-            st.text_area("Extracted Text", extracted_text, height=150)
+                st.subheader("Extracted Text:")
+                st.text_area("Extracted Text", extracted_text, height=150)
 
-            # Translate text
-            translator = Translator()
-            with st.spinner("Translating text..."):
-                try:
-                    translated_text = translator.translate(extracted_text, dest=target_language).text
-                except Exception as e:
-                    st.error(f"Translation failed: {str(e)}")
-                    return
+                # Translate text
+                translator = Translator()
+                with st.spinner("Translating text..."):
+                    try:
+                        translated_text = translator.translate(extracted_text, dest=target_language).text
+                    except Exception as e:
+                        st.error(f"Translation failed: {str(e)}")
+                        return
 
-            st.subheader("Translated Text:")
-            st.text_area("Translated Text", translated_text, height=150)
+                st.subheader("Translated Text:")
+                st.text_area("Translated Text", translated_text, height=150)
+
+        except Exception as e:
+            st.error(f"Error processing the image: {str(e)}")
 
 if __name__ == "__main__":
     main()
