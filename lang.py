@@ -45,13 +45,14 @@ def main():
 
     # Option to capture image using webcam (moved above the file uploader)
     st.subheader("Capture Image")
+
+    # Start webcam stream only when the "Capture Photo" button is pressed
     if st.button("Capture Photo"):
-        # Start webcam stream
         webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
     # Option to upload an image file
     uploaded_file = st.file_uploader("Or upload an image with text", type=["png", "jpg", "jpeg"])
-    
+
     # Language selection moved above the file upload
     target_language = st.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
@@ -107,10 +108,11 @@ class VideoTransformer(VideoTransformerBase):
         img = frame.to_ndarray(format="bgr24")
         # Convert to grayscale for easy processing
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
+
         # Save the frame as an image for later processing
         cv2.imwrite("captured_image.jpg", gray)
         st.image(gray, channels="BGR", caption="Captured Image", use_column_width=True)
+
         return frame
 
 
