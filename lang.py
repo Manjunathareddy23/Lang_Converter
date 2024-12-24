@@ -3,6 +3,8 @@ from googletrans import Translator
 from PIL import Image
 import easyocr
 import numpy as np
+import cv2
+from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
 # Set up the Streamlit app
 def main():
@@ -30,8 +32,14 @@ def main():
 
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
 
-    # File uploader and language selection on the main page
-    uploaded_file = st.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
+    # Option to take a photo using webcam
+    st.sidebar.subheader("Capture Image")
+    if st.sidebar.button("Capture Photo"):
+        # Start webcam stream
+        webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+
+    # Option to upload an image file
+    uploaded_file = st.file_uploader("Or upload an image with text", type=["png", "jpg", "jpeg"])
     target_language = st.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
@@ -78,6 +86,20 @@ def main():
 
             st.subheader("Translated Text:")
             st.text_area("Translated Text", translated_text, height=150)
+
+
+class VideoTransformer(VideoTransformerBase):
+    def transform(self, frame):
+        # Convert the frame to numpy array
+        img = frame.to_ndarray(format="bgr24")
+        # Convert to grayscale for easy processing
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        
+        # Save the frame as an image for later processing
+        cv2.imwrite("captured_image.jpg", gray)
+        st.image(gray, channels="BGR", caption="Captured Image", use_column_width=True)
+        return frame
+
 
 if __name__ == "__main__":
     main()
