@@ -42,10 +42,14 @@ def main():
         if st.button("Convert"):
             # Extract text from image
             with st.spinner("Extracting text..."):
-                reader = easyocr.Reader(["en"])  # Add language codes as needed
-                extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
-                if not extracted_text.strip():
-                    st.warning("No text found in the image.")
+                try:
+                    reader = easyocr.Reader(["en"])  # You can add more languages if needed
+                    extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
+                    if not extracted_text.strip():
+                        st.warning("No text found in the image.")
+                        return
+                except Exception as e:
+                    st.error(f"Text extraction failed: {str(e)}")
                     return
 
             st.subheader("Extracted Text:")
