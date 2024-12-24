@@ -3,5 +3,5 @@ googletrans==4.0.0-rc1
 Pillow
 easyocr
 numpy
-opencv-python
+opencv-python-headless
 streamlit-webrtc
