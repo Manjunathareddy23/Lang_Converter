@@ -6,6 +6,9 @@ import numpy as np
 import cv2
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
+# Set page config first to avoid errors
+st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
+
 # Test OpenCV Installation
 try:
     import cv2
@@ -15,9 +18,6 @@ except ImportError as e:
 
 # Set up the Streamlit app
 def main():
-    # Set page config first to avoid errors
-    st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
-
     # Add custom styles and header
     st.markdown(
         """
