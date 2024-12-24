@@ -3,22 +3,10 @@ from googletrans import Translator
 from PIL import Image
 import easyocr
 import numpy as np
-import cv2
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
-
-# Set page config first to avoid errors
-st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
-
-# Test OpenCV Installation
-try:
-    import cv2
-    st.write(f"OpenCV version: {cv2.__version__}")
-except ImportError as e:
-    st.error(f"Error importing OpenCV: {str(e)}")
 
 # Set up the Streamlit app
 def main():
-    # Add custom styles and header
+    st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
     st.markdown(
         """
         <style>
@@ -40,20 +28,10 @@ def main():
         unsafe_allow_html=True,
     )
 
-    # Add header with custom style
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
 
-    # Option to capture image using webcam (moved above the file uploader)
-    st.subheader("Capture Image")
-
-    # Start webcam stream only when the "Capture Photo" button is pressed
-    if st.button("Capture Photo"):
-        webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
-
-    # Option to upload an image file
-    uploaded_file = st.file_uploader("Or upload an image with text", type=["png", "jpg", "jpeg"])
-
-    # Language selection moved above the file upload
+    # File uploader and language selection on the main page
+    uploaded_file = st.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
     target_language = st.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
@@ -101,20 +79,5 @@ def main():
             st.subheader("Translated Text:")
             st.text_area("Translated Text", translated_text, height=150)
 
-
-class VideoTransformer(VideoTransformerBase):
-    def transform(self, frame):
-        # Convert the frame to numpy array
-        img = frame.to_ndarray(format="bgr24")
-        # Convert to grayscale for easy processing
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        # Save the frame as an image for later processing
-        cv2.imwrite("captured_image.jpg", gray)
-        st.image(gray, channels="BGR", caption="Captured Image", use_column_width=True)
-
-        return frame
-
-
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
