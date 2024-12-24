@@ -1,11 +1,7 @@
 import streamlit as st
 from googletrans import Translator
 from PIL import Image
-import pytesseract
-import os
-
-# Specify Tesseract executable path (adjust for your system)
-pytesseract.pytesseract.tesseract_cmd = r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"  # Update this for your system
+import easyocr
 
 # Set up the Streamlit app
 def main():
@@ -46,13 +42,10 @@ def main():
         if st.button("Convert"):
             # Extract text from image
             with st.spinner("Extracting text..."):
-                try:
-                    extracted_text = pytesseract.image_to_string(image)
-                    if not extracted_text.strip():
-                        st.warning("No text found in the image.")
-                        return
-                except pytesseract.TesseractNotFoundError:
-                    st.error("Tesseract OCR is not installed or not found. Please check your installation.")
+                reader = easyocr.Reader(["en"])  # Add language codes as needed
+                extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
+                if not extracted_text.strip():
+                    st.warning("No text found in the image.")
                     return
 
             st.subheader("Extracted Text:")
