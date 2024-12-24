@@ -15,7 +15,7 @@ except ImportError as e:
 
 # Set up the Streamlit app
 def main():
-    # Set page config first
+    # Set page config first to avoid errors
     st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
 
     # Add custom styles and header
@@ -40,9 +40,10 @@ def main():
         unsafe_allow_html=True,
     )
 
+    # Add header with custom style
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
 
-    # Option to take a photo using webcam - Moved above file upload
+    # Option to capture image using webcam (moved above the file uploader)
     st.subheader("Capture Image")
     if st.button("Capture Photo"):
         # Start webcam stream
