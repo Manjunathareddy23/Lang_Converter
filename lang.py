@@ -29,11 +29,10 @@ def main():
     )
 
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
-    st.sidebar.header("Upload and Translate")
 
-    # File uploader and language selection on the sidebar
-    uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
-    target_language = st.sidebar.selectbox(
+    # File uploader and language selection on the main page
+    uploaded_file = st.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
+    target_language = st.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
 
@@ -80,6 +79,7 @@ def main():
 
             st.subheader("Translated Text:")
             st.text_area("Translated Text", translated_text, height=150)
+    
 
 if __name__ == "__main__":
     main()
