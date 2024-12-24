@@ -2,6 +2,7 @@ import streamlit as st
 from googletrans import Translator
 from PIL import Image
 import easyocr
+import numpy as np
 
 # Set up the Streamlit app
 def main():
@@ -40,6 +41,9 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
+        # Convert PIL image to numpy array
+        image_np = np.array(image)
+
         if st.button("Convert"):
             # Extract text from image
             with st.spinner("Extracting text..."):
@@ -52,7 +56,7 @@ def main():
                     else:
                         reader = easyocr.Reader(["en", target_language])  # For other languages
 
-                    extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
+                    extracted_text = "\n".join([text[1] for text in reader.readtext(image_np)])
                     if not extracted_text.strip():
                         st.warning("No text found in the image.")
                         return
