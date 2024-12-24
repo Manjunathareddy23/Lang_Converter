@@ -36,6 +36,7 @@ def main():
     )
 
     if uploaded_file is not None:
+        # Open the image
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
@@ -43,7 +44,7 @@ def main():
             # Extract text from image
             with st.spinner("Extracting text..."):
                 try:
-                    reader = easyocr.Reader(["en"])  # You can add more languages if needed
+                    reader = easyocr.Reader(["en", "te", "ta", "kn", "ml"])  # Adding multiple languages for OCR
                     extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
                     if not extracted_text.strip():
                         st.warning("No text found in the image.")
