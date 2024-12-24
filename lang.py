@@ -5,7 +5,7 @@ import easyocr
 
 # Set up the Streamlit app
 def main():
-    st.set_page_config(page_title="Image Text Translator", layout="wide")
+    st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
     st.markdown(
         """
         <style>
@@ -27,13 +27,13 @@ def main():
         unsafe_allow_html=True,
     )
 
-    st.markdown("<h1 class='title'>Image Text Translator</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
     st.sidebar.header("Upload and Translate")
 
     uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
     target_language = st.sidebar.selectbox(
-        "Select target language", ["en", "te", "ta", "kn"]
-    )  # Removed 'ml' temporarily
+        "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
+    )  # List of supported Indian languages
 
     if uploaded_file is not None:
         # Open the image
@@ -44,8 +44,14 @@ def main():
             # Extract text from image
             with st.spinner("Extracting text..."):
                 try:
-                    # Set OCR reader for supported languages
-                    reader = easyocr.Reader(["en", "te", "ta", "kn"])  # Removed 'ml' from the list
+                    # Handle OCR based on the target language
+                    if target_language == "ta":
+                        reader = easyocr.Reader(["en", "ta"])  # Tamil requires English
+                    elif target_language == "ml":
+                        reader = easyocr.Reader(["en", "ml"])  # Malayalam requires English
+                    else:
+                        reader = easyocr.Reader(["en", target_language])  # For other languages
+
                     extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
                     if not extracted_text.strip():
                         st.warning("No text found in the image.")
