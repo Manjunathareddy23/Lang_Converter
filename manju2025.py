@@ -1,5 +1,5 @@
 import streamlit as st
-from googletrans import Translator
+from googletrans import Translator, LANGUAGES
 from PIL import Image
 import easyocr
 import numpy as np
