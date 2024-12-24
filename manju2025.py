@@ -79,7 +79,6 @@ def main():
 
             st.subheader("Translated Text:")
             st.text_area("Translated Text", translated_text, height=150)
-    
 
 if __name__ == "__main__":
     main()
