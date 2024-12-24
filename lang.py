@@ -32,8 +32,8 @@ def main():
 
     uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
     target_language = st.sidebar.selectbox(
-        "Select target language", ["en", "te", "ta", "kn", "ml"]
-    )
+        "Select target language", ["en", "te", "ta", "kn"]
+    )  # Removed 'ml' temporarily
 
     if uploaded_file is not None:
         # Open the image
@@ -44,7 +44,8 @@ def main():
             # Extract text from image
             with st.spinner("Extracting text..."):
                 try:
-                    reader = easyocr.Reader(["en", "te", "ta", "kn", "ml"])  # Adding multiple languages for OCR
+                    # Set OCR reader for supported languages
+                    reader = easyocr.Reader(["en", "te", "ta", "kn"])  # Removed 'ml' from the list
                     extracted_text = "\n".join([text[1] for text in reader.readtext(image)])
                     if not extracted_text.strip():
                         st.warning("No text found in the image.")
