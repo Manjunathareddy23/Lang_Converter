@@ -31,13 +31,14 @@ def main():
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
     st.sidebar.header("Upload and Translate")
 
+    # File uploader and language selection on the sidebar
     uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
     target_language = st.sidebar.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
 
     if uploaded_file is not None:
-        # Open the image
+        # Open the image and display it
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
@@ -45,7 +46,7 @@ def main():
         image_np = np.array(image)
 
         if st.button("Convert"):
-            # Extract text from image
+            # Extract text from image using EasyOCR
             with st.spinner("Extracting text..."):
                 try:
                     # Handle OCR based on the target language
@@ -56,6 +57,7 @@ def main():
                     else:
                         reader = easyocr.Reader(["en", target_language])  # For other languages
 
+                    # Perform OCR and join extracted text
                     extracted_text = "\n".join([text[1] for text in reader.readtext(image_np)])
                     if not extracted_text.strip():
                         st.warning("No text found in the image.")
