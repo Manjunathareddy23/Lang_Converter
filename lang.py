@@ -15,7 +15,10 @@ except ImportError as e:
 
 # Set up the Streamlit app
 def main():
+    # Set page config first
     st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
+
+    # Add custom styles and header
     st.markdown(
         """
         <style>
