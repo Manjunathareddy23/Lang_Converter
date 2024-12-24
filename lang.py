@@ -6,6 +6,13 @@ import numpy as np
 import cv2
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
+# Test OpenCV Installation
+try:
+    import cv2
+    st.write(f"OpenCV version: {cv2.__version__}")
+except ImportError as e:
+    st.error(f"Error importing OpenCV: {str(e)}")
+
 # Set up the Streamlit app
 def main():
     st.set_page_config(page_title="Indian Language Image Text Translator", layout="wide")
@@ -32,14 +39,16 @@ def main():
 
     st.markdown("<h1 class='title'>Indian Language Image Text Translator</h1>", unsafe_allow_html=True)
 
-    # Option to take a photo using webcam
-    st.sidebar.subheader("Capture Image")
-    if st.sidebar.button("Capture Photo"):
+    # Option to take a photo using webcam - Moved above file upload
+    st.subheader("Capture Image")
+    if st.button("Capture Photo"):
         # Start webcam stream
         webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
     # Option to upload an image file
     uploaded_file = st.file_uploader("Or upload an image with text", type=["png", "jpg", "jpeg"])
+    
+    # Language selection moved above the file upload
     target_language = st.selectbox(
         "Select target language", ["en", "hi", "te", "ta", "kn", "ml", "bn"]
     )  # List of supported Indian languages
