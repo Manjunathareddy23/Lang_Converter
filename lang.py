@@ -34,7 +34,7 @@ def main():
     st.sidebar.header("Upload and Translate")
 
     uploaded_file = st.sidebar.file_uploader("Upload an image with text", type=["png", "jpg", "jpeg"])
-    target_language = st.sidebar.selectbox("Select target language", ["en", "hi", "es", "fr", "de", "zh-cn", "ar", "ru", "ja"])
+    target_language = st.sidebar.selectbox("Select target language", ["te","en", "hi", "es", "fr", "de", "zh-cn", "ar", "ru", "ja"])
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
