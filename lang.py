@@ -1,12 +1,12 @@
 import streamlit as st
 from googletrans import Translator, LANGUAGES  
 
-# Apply custom CSS directly in the app
+# Apply custom CSS using st.markdown
 st.markdown("""
     <style>
     /* Set full-page background color to cyan */
-    body {
-        background-color: cyan !important; /* Cyan */
+    [data-testid="stAppViewContainer"] {
+        background-color: #00FFFF !important; /* Cyan */
     }
 
     /* Title Styling */
@@ -17,7 +17,7 @@ st.markdown("""
     }
 
     /* Style the text area with pink */
-    .stTextArea textarea {
+    textarea {
         background-color: #FFC0CB !important; /* Pink */
         color: black;
         font-size: 16px;
@@ -28,7 +28,7 @@ st.markdown("""
     }
 
     /* Style select dropdowns */
-    .stSelectbox div[data-baseweb="select"] {
+    [data-testid="stSelectbox"] {
         background-color: #FFC0CB !important; /* Pink */
         border-radius: 10px;
         border: 2px solid #FF1493; /* Dark Pink */
@@ -36,7 +36,7 @@ st.markdown("""
     }
 
     /* Style translate button */
-    .stButton button {
+    [data-testid="stButton"] button {
         background-color: #FF1493 !important; /* Dark Pink */
         color: white;
         font-size: 18px;
@@ -47,7 +47,7 @@ st.markdown("""
     }
 
     /* Hover effect for button */
-    .stButton button:hover {
+    [data-testid="stButton"] button:hover {
         background-color: #D6006E !important;
     }
     </style>
@@ -83,4 +83,5 @@ if st.button("Translate 🔄"):
         st.write(translated_text)
     else:
         st.warning("⚠️ Please enter some text to translate.")
+
 st.success("Developed by K.Manjunathareddy-6300138360")
