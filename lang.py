@@ -16,13 +16,13 @@ st.markdown("""
         font-size: 2.5rem;
     }
 
-    /* Style the text area with the Indian flag colors */
+    /* Style the text area with pink */
     .stTextArea textarea {
-        background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #128807 66%);
+        background-color: #FFC0CB !important; /* Pink */
         color: black;
         font-size: 16px;
         font-weight: bold;
-        border: 2px solid #FF9933; /* Orange Border */
+        border: 2px solid #FF1493; /* Dark Pink Border */
         border-radius: 10px;
         padding: 10px;
     }
