@@ -19,10 +19,10 @@ st.markdown("""
         border-radius: 10px;
     }
 
-    /* Style the text area with white background */
+    /* Style the text area with white background and black text */
     textarea {
         background-color: #FFFFFF !important; /* White */
-        color: black;
+        color: black !important;  /* Ensure text is black */
         font-size: 16px;
         font-weight: bold;
         border: 2px solid #32CD32; /* Lime Green Border */
