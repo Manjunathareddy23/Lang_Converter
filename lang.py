@@ -53,6 +53,26 @@ st.markdown("""
     [data-testid="stButton"] button:hover {
         background-color: #D6006E !important;
     }
+
+    /* Style translated text with white background */
+    .translated-text {
+        background-color: #FFFFFF !important; /* White */
+        color: black;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* Style success message with pink background */
+    .success-message {
+        background-color: #FFC0CB !important; /* Pink */
+        color: black;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -82,9 +102,9 @@ def translate_with_google(text, source_lang, target_lang):
 if st.button("Translate 🔄"):
     if text_to_translate:
         translated_text = translate_with_google(text_to_translate, source_language, target_language)
-        st.subheader("Translated Text:")
-        st.write(translated_text)
+        st.markdown(f'<div class="translated-text">Translated Text: {translated_text}</div>', unsafe_allow_html=True)
     else:
         st.warning("⚠️ Please enter some text to translate.")
 
-st.success("Developed by K.Manjunathareddy-6300138360")
+# Success message with pink background
+st.markdown('<div class="success-message">Developed by K.Manjunathareddy-6300138360</div>', unsafe_allow_html=True)
