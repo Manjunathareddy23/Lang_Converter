@@ -9,16 +9,19 @@ st.markdown("""
         background-color: #000080 !important; /* Navy Blue */
     }
 
-    /* Title Styling */
+    /* Title Styling - Highlighting the main heading */
     h1 {
-        color: #FFFFFF; /* White */
+        background-color: #FFD700; /* Gold background */
+        color: #FFFFFF; /* White text */
         text-align: center;
         font-size: 2.5rem;
+        padding: 20px;
+        border-radius: 10px;
     }
 
-    /* Style the text area with light green */
+    /* Style the text area with white background */
     textarea {
-        background-color: #90EE90 !important; /* Light Green */
+        background-color: #FFFFFF !important; /* White */
         color: black;
         font-size: 16px;
         font-weight: bold;
