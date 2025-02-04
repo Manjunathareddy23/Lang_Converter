@@ -4,14 +4,14 @@ from googletrans import Translator, LANGUAGES
 # Apply custom CSS using st.markdown
 st.markdown("""
     <style>
-    /* Set full-page background color to cyan */
+    /* Set full-page background color to navy blue */
     [data-testid="stAppViewContainer"] {
-        background-color: #00FFFF !important; /* Cyan */
+        background-color: #000080 !important; /* Navy Blue */
     }
 
     /* Title Styling */
     h1 {
-        color: #003366; /* Dark Blue */
+        color: #FFFFFF; /* White */
         text-align: center;
         font-size: 2.5rem;
     }
