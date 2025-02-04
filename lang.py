@@ -16,22 +16,22 @@ st.markdown("""
         font-size: 2.5rem;
     }
 
-    /* Style the text area with pink */
+    /* Style the text area with light green */
     textarea {
-        background-color: #FFC0CB !important; /* Pink */
+        background-color: #90EE90 !important; /* Light Green */
         color: black;
         font-size: 16px;
         font-weight: bold;
-        border: 2px solid #FF1493; /* Dark Pink Border */
+        border: 2px solid #32CD32; /* Lime Green Border */
         border-radius: 10px;
         padding: 10px;
     }
 
-    /* Style select dropdowns */
+    /* Style select dropdowns with light green */
     [data-testid="stSelectbox"] {
-        background-color: #FFC0CB !important; /* Pink */
+        background-color: #90EE90 !important; /* Light Green */
         border-radius: 10px;
-        border: 2px solid #FF1493; /* Dark Pink */
+        border: 2px solid #32CD32; /* Lime Green */
         padding: 5px;
     }
 
