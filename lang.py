@@ -6,7 +6,7 @@ st.markdown("""
     <style>
     /* Set full-page background color to cyan */
     body {
-        background-color: #00FFFF !important; /* Cyan */
+        background-color: cyan !important; /* Cyan */
     }
 
     /* Title Styling */
@@ -83,3 +83,4 @@ if st.button("Translate 🔄"):
         st.write(translated_text)
     else:
         st.warning("⚠️ Please enter some text to translate.")
+st.success("Developed by K.Manjunathareddy-6300138360")
