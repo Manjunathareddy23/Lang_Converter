@@ -1,5 +1,6 @@
 streamlit
-googletrans
+
+deep-translator
 Pillow
 easyocr
 numpy
